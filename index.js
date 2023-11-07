@@ -43,6 +43,28 @@ async function run() {
             res.send(result);
         })
 
+        app.put('/blogs/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const option = { upsert: true };
+            const updateBlog = req.body;
+            const blog = {
+                $set: {
+                    photo: updateBlog.photo,
+                    category: updateBlog.category,
+                    title: updateBlog.title,
+                    taste: updateBlog.taste,
+                    shortDec: updateBlog.shortDec,
+                    longDec: updateBlog.longDec,
+                    ownerEmail: updateBlog.ownerEmail,
+                    ownerPhoto: updateBlog.ownerPhoto,
+                    ownerName: updateBlog.ownerName
+                }
+            };
+            const result = await blogCollection.updateOne(query, blog, option);
+            res.send(result);
+        })
+
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
     }
