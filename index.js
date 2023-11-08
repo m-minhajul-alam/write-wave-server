@@ -88,6 +88,14 @@ async function run() {
             res.send(result);
         });
 
+
+        // wishlist collection
+        app.post('/wishlist', async (req, res) => {
+            const newWishlist = req.body;
+            const result = await wishlistCollection.insertOne(newWishlist);
+            res.send(result);
+        });
+
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
     }
