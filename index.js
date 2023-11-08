@@ -96,6 +96,13 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/wishlist/:userEmail', async (req, res) => {
+            const userEmail = req.params.userEmail;
+            const cursor = wishlistCollection.find({ userEmail });
+            const result = await cursor.toArray();
+            res.send(result);
+        });
+
         app.post('/wishlist', async (req, res) => {
             const newWishlist = req.body;
             const result = await wishlistCollection.insertOne(newWishlist);
