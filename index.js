@@ -75,13 +75,17 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/comments/:blogId', async (req, res) => {
+            const blogId = req.params.blogId;
+            const comments = await commentCollection.find({ blogId }).toArray();
+            res.json(comments);
+        });
+
         app.post('/comments', async (req, res) => {
             const newComment = req.body;
             const result = await commentCollection.insertOne(newComment);
             res.send(result);
         });
-        
-
 
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
