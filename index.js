@@ -23,6 +23,7 @@ async function run() {
 
         const blogCollection = client.db('blogDB').collection('blogs');
         const commentCollection = client.db('blogDB').collection('comments');
+        const wishlistCollection = client.db('blogDB').collection('wishlist');
 
         // blog collection
         app.get('/blogs', async (req, res) => {
