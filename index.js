@@ -68,7 +68,13 @@ async function run() {
         })
 
 
-      
+        // comment collection
+
+        app.post('/comments', async (req, res) => {
+            const newComment = req.body;
+            const result = await commentCollection.insertOne(newComment);
+            res.send(result);
+        });
         
 
 
