@@ -69,6 +69,11 @@ async function run() {
 
 
         // comment collection
+        app.get('/comments', async (req, res) => {
+            const cursor = commentCollection.find();
+            const result = await cursor.toArray();
+            res.send(result)
+        })
 
         app.post('/comments', async (req, res) => {
             const newComment = req.body;
