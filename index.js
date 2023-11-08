@@ -22,7 +22,9 @@ async function run() {
     try {
 
         const blogCollection = client.db('blogDB').collection('blogs');
+        const commentCollection = client.db('blogDB').collection('comments');
 
+        // blog collection
         app.get('/blogs', async (req, res) => {
             const cursor = blogCollection.find();
             const result = await cursor.toArray();
@@ -38,7 +40,6 @@ async function run() {
 
         app.post('/blogs', async (req, res) => {
             const newBlogs = req.body;
-            console.log(newBlogs);
             const result = await blogCollection.insertOne(newBlogs);
             res.send(result);
         })
@@ -58,12 +59,18 @@ async function run() {
                     longDec: updateBlog.longDec,
                     ownerEmail: updateBlog.ownerEmail,
                     ownerPhoto: updateBlog.ownerPhoto,
-                    ownerName: updateBlog.ownerName
+                    ownerName: updateBlog.ownerName,
+                    uploadTime: updateBlog.uploadTime
                 }
             };
             const result = await blogCollection.updateOne(query, blog, option);
             res.send(result);
         })
+
+
+      
+        
+
 
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
